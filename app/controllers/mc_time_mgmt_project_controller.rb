@@ -19,20 +19,18 @@ class McTimeMgmtProjectController < ApplicationController
     @totalIssues = Issue.where(:project_id => [stringSqlProjectsSubProjects]).count
 
 
-    @issuesSpentHours = Issue.find_by_sql("select issues.due_date, sum(issues.estimated_hours) as estimated_hours,
-                                                  (select sum(i.estimated_hours)
-                                                  from issues i
-                                                  where i.project_id in (#{stringSqlProjectsSubProjects})
-                                                  /*and i.due_date is not null*/
-                                                  and i.due_date <= issues.due_date and i.parent_id is null) as sumestimatedhours,
-                                                  (select sum(hours) from time_entries where project_id in (#{stringSqlProjectsSubProjects}) and spent_on <= issues.due_date ) as sumspenthours
-                                                  from issues
-                                                  where issues.project_id in (#{stringSqlProjectsSubProjects})
-                                            /*and due_date is not null*/
-                                            and due_date <= issues.due_date
-                                            and parent_id is null
-                                            group by issues.due_date
-                                            order by due_date;")    
+    @issuesSpentHours = Issue.find_by_sql("select
+                                             parent.due_date,
+                                             sum(issues.estimated_hours) as estimated_hours,
+                                             (select sum(i.estimated_hours) from issues i join issues ip on ip.id = i.root_id and ip.due_date is not null where i.project_id in (#{stringSqlProjectsSubProjects}) and ip.due_date <= parent.due_date) as sumestimatedhours,
+                                             (select sum(hours) from time_entries where project_id in (#{stringSqlProjectsSubProjects}) and spent_on <= parent.due_date ) as sumspenthours
+                                           from issues
+                                             join issues parent on
+                                               parent.id = issues.root_id and
+                                               parent.due_date is not null
+                                           where issues.project_id in (#{stringSqlProjectsSubProjects})
+                                           group by parent.due_date
+                                           order by parent.due_date;")    
                                         
 
     @spentHoursByVersion = Issue.find_by_sql("select versions.name as version, versions.effective_date, sum(issues.estimated_hours) as estimated_hours, 
