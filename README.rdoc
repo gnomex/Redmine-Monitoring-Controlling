@@ -7,38 +7,25 @@ M&C is a Redmine Plugin used as a chart tool to monitoring issues' project
 * Visite: Monitoramento-&-Controle[http://alexmonteiro.github.com/Redmine-Monitoring-Controlling]
 
 == Features
-===Master Version (0.1.2) (Redmine 1.4.x or 2.0.x)
+===Master Version (0.2.1) (Redmine 4.0.X)
 ====Release notes
-* Included progress bar on top right
-* Refactoring menu structure
-* Scrollbar on Time Management charts
-====Task Management
-* Pie and Bar Chart of issues by category;
-* Pie Chart of issues by statuses;
-* Pie Chart of manageable and unmanagleabe issues;
-* Chart with overdue tasks by project.
-====Time Management
-* Line chart with estimated hours and spent hours till due date of tasks.
-* Column chart with ammount of estimated and spent hours on project.
-====Human Resource Management
-* Column Bar charts issues by Assignee
-* Column Bar chart with issues by Status of each Assignee
+* Upgrade to redmine 4.0.X
 
 == How to install 
 
 === Requirements
 
-* Redmine trunk version;
+* Redmine 4.0.x stable version;
 
 === Step-by-step
 
-* Copy or clone the app on Redmine plugin folder with the same name like: /vendor/plugins/redmine_monitoring_controlling
+* Copy or clone the app on Redmine plugin folder with the same name like: /plugins/redmine_monitoring_controlling
     
-    cd /{redmineInstalationDir}/vendor/plugins
-    git clone https://github.com/alexmonteiro/Redmine-Monitoring-Controlling.git redmine_monitoring_controlling
-    
-* Run 
-	rake db:migrate_plugins to copy the assets.
+    cd /{redmineInstalationDir}/plugins
+    git clone https://github.com/gnomex/Redmine-Monitoring-Controlling.git redmine_monitoring_controlling
+    cd redmine_monitoring_controlling
+	rake redmine:plugins:migrate
+	
 * Restart your redmine application.
 * Activate your M&C on projects modulues.
 
