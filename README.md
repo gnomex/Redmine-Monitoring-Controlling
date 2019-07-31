@@ -23,7 +23,7 @@ M&C is a Redmine Plugin used as a chart tool to monitoring issues' project
 cd /{redmineInstalationDir}/plugins
 git clone https://github.com/gnomex/Redmine-Monitoring-Controlling.git redmine_monitoring_controlling
 cd redmine_monitoring_controlling
-RAILS_ENV#production bundle exec rake redmine:plugins:migrate
+RAILS_ENV=production bundle exec rake redmine:plugins:migrate
 ```
 
 * Restart your redmine application.
