@@ -42,11 +42,8 @@
 
 div.central_charts {
     margin-top: 40px;
-}
-
-div.central_chart {
-    min-width: 520px;
-    height: 400px;
+    min-width: 100vw;
+    height: auto;
     margin: 0 auto;
 }
 
@@ -56,8 +53,8 @@ div.double_charts {
 }
 
 div.double_chart {
-    min-width: 520px;
-    height: 400px;
+    min-width: 45vw;
+    height: auto;
     margin: 0 auto;
     float: left;
 }
